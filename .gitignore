@@ -1,0 +1,29 @@
+# Entornos virtuales
+venv/
+.venv/
+
+# Archivos compilados de Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Archivos de logs
+*.log
+
+# Configuración local / secretos
+.env
+*.sqlite3
+
+# Reflex (cuando inicialices el proyecto)
+.reflex/
+.reflexdb/
+
+# Node / frontend (si llegas a usar algo adicional)
+node_modules/
+dist/
+build/
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
