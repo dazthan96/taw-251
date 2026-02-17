@@ -17,7 +17,7 @@ def obtener_articulo(parametro:str):
     conn = get_connection()
     cursor = conn.cursor(dictionary=True)
     query = "SELECT * FROM articulo WHERE nombre_art LIKE %s"
-    cursor.execute(query, (f"%{parametro}%",))
+    cursor.execute(query, (f"%{parametro.upper()}%",))
     rows = cursor.fetchall()
     conn.close()
     return [Articulo(**row).__dict__ for row in rows]

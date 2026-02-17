@@ -11,10 +11,10 @@ class Venta:
 class VentaCreate(BaseModel):
     ci_cli:str
     nombre_art:str
-    cantidad:str
+    cantidad:int
     fecha:str
     tipo_pago:str
 
 class VentaUpdate(BaseModel):
-    cantidad:str
+    cantidad:int
     tipo_pago:str

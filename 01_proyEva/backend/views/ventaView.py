@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from backend.controllers.ventaController import(obtener_ventas, obtener_venta, obtener_ventas_tipo_pago, obtener_ventas_por_anio,crear_venta, actualizar_venta,eliminar_venta)
+from backend.controllers.ventaController import(obtener_ventas, obtener_venta, obtener_ventas_tipo_pago, obtener_ventas_por_anio, obtener_venta_cod_ven  ,crear_venta, actualizar_venta,eliminar_venta)
 from backend.models.ventaModel import VentaCreate, VentaUpdate
 
 router = APIRouter(prefix="/ventas", tags=["Ventas"])
@@ -19,6 +19,10 @@ def listar_ventas_tipo_pago(parametro:str):
 @router.get("/anio/{parametro}")
 def listar_ventas_por_anio(parametro:int):
     return obtener_ventas_por_anio(parametro)
+
+@router.get("/cod/{cod_ven}")
+def ver_venta_cod(cod_ven):
+    return obtener_venta_cod_ven(cod_ven)
 
 @router.post("/")
 def nueva_venta(venta:VentaCreate):

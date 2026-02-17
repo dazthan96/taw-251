@@ -34,6 +34,15 @@ def obtener_ventas_tipo_pago(parametro:str):
     conn.close()
     return [Venta(**row).__dict__ for row in rows]
 
+def obtener_venta_cod_ven(cod_ven):
+    conn = get_connection()
+    cursor = conn.cursor(dictionary=True)
+    query = "SELECT * FROM venta WHERE cod_ven LIKE %s"
+    cursor.execute(query, (f"%{cod_ven}%",))
+    rows = cursor.fetchall()
+    conn.close()
+    return (Venta(**row).__dict__ for row in rows)
+
 def obtener_ventas_por_anio(anio:int):
     conn = get_connection()
     cursor = conn.cursor(dictionary=True)
@@ -42,14 +51,14 @@ def obtener_ventas_por_anio(anio:int):
     conn.close()
     return [Venta(**row).__dict__ for row in rows]
 
-def crear_venta(ci_cliente:str, nombre_articulo:str, cantidad:str, fecha:str, tipo_pago:str):
+def crear_venta(ci_cliente:str, nombre_articulo:str, cantidad, fecha:str, tipo_pago:str):
     cliente = obtener_cliente(ci_cliente)
-    if not cliente:
-        return {"error":"cliente no encontrado"}
+    if not cliente or len(cliente)==0:
+        return {"status": "error", "message": "El CI del cliente no existe"}
     cod_cli = cliente[0]["cod_cli"]
     articulo = obtener_articulo(nombre_articulo)
-    if not articulo:
-        return {"error":"articulo no encontrado"}
+    if not articulo or len(articulo)==0:
+        return {"status": "error", "message": "El artículo no fue encontrado"}
     cod_art = articulo[0]["cod_art"]
     conn = get_connection()
     cursor = conn.cursor()

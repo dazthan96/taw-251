@@ -8,11 +8,11 @@ class Articulo:
 
 class ArticuloCreate(BaseModel):
     nombre_art:str
-    precio_art:str
+    precio_art:float
     industria:str
 
 class ArticuloUpdate(BaseModel):
     nombre_art:str
-    precio_art:str
+    precio_art:float
     industria:str
 

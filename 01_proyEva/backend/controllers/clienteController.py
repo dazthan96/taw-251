@@ -3,7 +3,10 @@ from backend.models.clientesModel import Cliente
 
 def generar_cod_cli(ap_cli:str, am_cli:str, telefono:str)->str:
     letra_ap = ap_cli[0].upper()
-    letra_am = am_cli[0].upper()
+    if am_cli:
+        letra_am = am_cli[0].upper()
+    else:
+        letra_am =ap_cli[1].upper()
     ultimo3 = telefono[-3:]
     return f"{letra_ap}{letra_am}{ultimo3}"
 
