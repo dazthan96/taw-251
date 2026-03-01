@@ -20,11 +20,12 @@ class VentaState(rx.State):
 
     def cargar_venta(self):
         venta_cod = self.router.page.params.get("venta_id")
-        id_numerico = int(self.cod_ven) 
+        #if not self.cod_ven:return
+        
         #print(nombre)
         if venta_cod:
-            
-            venta = ver_venta_cod(id_numerico)[0]
+            #id_numerico = int(self.cod_ven) 
+            venta = ver_venta_cod(venta_cod)[0]
             self.cod_ven = str(venta["cod_ven"])
             self.cantidad= venta["cantidad"]
             self.tipo_pago = venta["tipo_pago"]
