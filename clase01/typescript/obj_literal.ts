@@ -31,7 +31,7 @@ let persona :Persona ={
 }
 //const copiaPersona = persona; //copia el puntero del area de memoria
 //const copiaPersona = {...persona}; //copia el objeto en su totalidad de manera superficial, ineficiente si se tiene una estructura interna
-const copiaPersona = structuredClone(persona);
+const copiaPersona = structuredClone(persona); //3ra forma de clonar un objeto
 
 persona.nombre="Luis";
 persona.direccion.ciudad="Tarija"
