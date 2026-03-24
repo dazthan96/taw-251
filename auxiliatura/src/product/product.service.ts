@@ -1,6 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Product } from './entities/product.entity';
+import { NotFoundError } from 'rxjs';
 
 export interface Producto{
   id:number;
@@ -8,27 +12,40 @@ export interface Producto{
   precio:number
 }
 
+//@InjectRepository(Product)
 @Injectable()
 export class ProductService {
-  private productos: Producto[]=[
+  
+  constructor(
+    @InjectRepository(Product)
+    private readonly productoRepository:Repository<Product>
+  ){}
+  /*private productos: Producto[]=[
     { id:1, nombre:"producto 1", precio:10 },
     { id:2, nombre:"producto 2", precio:20 },
     { id:3, nombre:"producto 3", precio:30 }
-  ];
-  create(createProductDto: CreateProductDto) {
-    return 'This action adds a new product';
+  ];*/
+  async create(createProductDto: CreateProductDto) {
+    const producto = this.productoRepository.create(createProductDto);
+    return await this.productoRepository.save(producto);
   }
 
-  findAll():Producto[] {
-    return this.productos;
+  async findAll():Promise<Product[]> {
+    return await this.productoRepository.find();
   }
 
-  findOne(id: number):Producto | undefined{
-    const p1 = this.productos.find(producto => producto.id === id);
-    return p1;
+  async findOne(id: number){
+    const p1 = this.productoRepository.findOneBy({id:id});
+    if(!p1){
+      throw new NotFoundError('producto no encontrado')
+    }else{
+      return p1;
+    }
+    
   }
 
-  update(id: number, updateProductDto: UpdateProductDto) {
+  async update(id: number, updateProductDto: UpdateProductDto) {
+    
     return `This action updates a #${id} product`;
   }
 
